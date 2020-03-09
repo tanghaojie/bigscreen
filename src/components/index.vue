@@ -67,7 +67,7 @@
                       :data="item.data"
                       style="height:80%"
                       :style="'width:' + 80 / waterLevels.length + '%'"
-                      @click.native="test(item.id)"
+                      @click.native="waterLevelsClicked(item)"
                     />
                   </div>
                 </dv-border-box-1>
@@ -87,7 +87,7 @@
                       :data="item.data"
                       style="height:80%;margin-top:3%;"
                       :style="'width:' + 80 / onTimeWaterQuality.length + '%'"
-                      @click.native="test(item.id)"
+                      @click.native="waterLevelsClicked(item.id)"
                     />
                   </div>
                 </dv-border-box-8>
@@ -473,30 +473,29 @@ export default {
       },
       onTimeEventData: [
         {
+          id: 0,
           date: '2020-02-02 09：00',
           type: '河库坝渗漏垮塌',
           finish: true,
           camera: {
             position: [
-              103.64900637668494,
-              30.945060583094236,
-              2672.7336980625987
+              103.57625175394175,
+              31.007923731569164,
+              2102.1635767901316
             ],
-            tilt: 83.98,
-            heading: 325.16530992524247
+            tilt: 65.4490188235477,
+            heading: 357.2711
           },
           graphic: {
             geometry: {
               type: 'point',
-              x: -0.178,
-              y: 51.48791
-              // z: 1000
+              x: 103.57478486674232,
+              y: 31.034105013420085
             },
             symbol: {
-              type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+              type: 'simple-marker',
               color: [226, 119, 40],
               outline: {
-                // autocasts as new SimpleLineSymbol()
                 color: [255, 255, 255],
                 width: 2
               }
@@ -504,30 +503,29 @@ export default {
           }
         },
         {
+          id: 1,
           date: '2020-02-02 12：38',
           type: '违章建筑',
           finish: true,
           camera: {
             position: [
-              103.64900637668494,
-              30.945060583094236,
-              2672.7336980625987
+              103.58261023482338,
+              31.020385153958642,
+              3497.995936532505
             ],
-            tilt: 83.98,
-            heading: 325.16530992524247
+            tilt: 32.1914660939127,
+            heading: 334.35606579492327
           },
           graphic: {
             geometry: {
               type: 'point',
-              x: -0.178,
-              y: 51.49
-              // z: 1000
+              x: 103.57478486674232,
+              y: 31.034105013420085
             },
             symbol: {
-              type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+              type: 'simple-marker',
               color: [226, 119, 40],
               outline: {
-                // autocasts as new SimpleLineSymbol()
                 color: [255, 255, 255],
                 width: 2
               }
@@ -535,34 +533,63 @@ export default {
           }
         },
         {
+          id: 2,
           date: '2020-02-10 11：56',
           type: '污水输排',
           finish: false,
           camera: {
-            position: [
-              103.64900637668494,
-              30.945060583094236,
-              2672.7336980625987
-            ],
-            tilt: 111,
-            heading: 325.16530992524247
+            position: [103.69198626711832, 31.8416930353198, 3653.961192998104],
+            tilt: 0.5000018481672852,
+            heading: 359.98464838260446
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.69198626711832,
+              y: 31.8416930353198
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 3,
           date: '2020-02-11 09：02',
           type: '非法捕捞',
           finish: false,
           camera: {
             position: [
-              103.64900637668494,
-              30.945060583094236,
-              2672.7336980625987
+              103.6975813572745,
+              31.84054564861106,
+              2049.2563779409975
             ],
-            tilt: 83.98,
-            heading: 325.16530992524247
+            tilt: 55.73405229906623,
+            heading: 287.3831041921205
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.69198626711832,
+              y: 31.8416930353198
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 4,
           date: '2020-02-12 10：15',
           type: '河岸垃圾',
           finish: true,
@@ -574,9 +601,25 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 5,
           date: '2020-02-13 19：30',
           type: '破坏岸线',
           finish: false,
@@ -588,9 +631,25 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 6,
           date: '2020-02-14 23：59',
           type: '非法捕捞',
           finish: true,
@@ -602,9 +661,25 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 7,
           date: '2020-02-15 13：00',
           type: '污水输排',
           finish: true,
@@ -616,9 +691,25 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 8,
           date: '2020-02-16 17：20',
           type: '漂浮物',
           finish: false,
@@ -630,9 +721,25 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         },
         {
+          id: 9,
           date: '2020-02-17 18：23',
           type: '违章建筑',
           finish: false,
@@ -644,6 +751,21 @@ export default {
             ],
             tilt: 83.98,
             heading: 325.16530992524247
+          },
+          graphic: {
+            geometry: {
+              type: 'point',
+              x: 103.57303406492765,
+              y: 31.032289065395688
+            },
+            symbol: {
+              type: 'simple-marker',
+              color: [226, 119, 40],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            }
           }
         }
       ],
@@ -751,7 +873,114 @@ export default {
               waveHeight: 10,
               formatter: '{value}%'
             }
-          }
+          },
+          camera: {
+            // position: [
+            //   102.68574995029584,
+            //   30.973350848001495,
+            //   2798.6877673929557
+            // ],
+            position: [-97.06138, 32.837, 1500],
+            tilt: 76.40884423513269,
+            heading: 244.20253800398586
+          },
+          graphics: [
+            {
+              geometry: {
+                type: 'polygon',
+                rings: [
+                  [
+                    // first ring
+                    [-97.06138, 32.837, 1000],
+                    [-97.06133, 32.836, 1000],
+                    [-97.06124, 32.834, 1000],
+                    [-97.06138, 32.837, 1000] // same as first vertex
+                  ],
+                  [
+                    // second ring
+                    [-97.06326, 32.759, 2000],
+                    [-97.06298, 32.755, 2000],
+                    [-97.06153, 32.749, 2000],
+                    [-97.06326, 32.759, 2000] // same as first vertex
+                  ]
+                ],
+                spatialReference: { wkid: 4326 }
+              },
+              symbol: {
+                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+                color: [227, 139, 79, 0.8],
+                outline: {
+                  // autocasts as new SimpleLineSymbol()
+                  color: [255, 255, 255],
+                  width: 1
+                }
+              }
+            }
+          ]
+          // graphics: [
+          //   {
+          //     geometry: {
+          //       type: 'polyline',
+          //       paths: [
+          //         [102.68410677204612, 30.972666971580107, 2756],
+          //         [102.68410677204612, 30.972666971580107, 2770]
+          //       ]
+          //     },
+          //     symbol: {
+          //       type: 'simple-line',
+          //       color: [226, 119, 40],
+          //       width: 4
+          //     }
+          //   },
+          //   {
+          //     geometry: {
+          //       type: 'point',
+          //       x: 102.68410677204612,
+          //       y: 30.972666971580107,
+          //       z: 2756
+          //     },
+          //     symbol: {
+          //       type: 'simple-marker',
+          //       color: [226, 119, 40],
+          //       outline: {
+          //         color: [255, 255, 255],
+          //         width: 2
+          //       }
+          //     }
+          //   },
+          //   {
+          //     geometry: {
+          //       type: 'point',
+          //       x: 102.68410677204612,
+          //       y: 30.972666971580107,
+          //       z: 2770
+          //     },
+          //     symbol: {
+          //       type: 'simple-marker',
+          //       color: [226, 119, 40],
+          //       outline: {
+          //         color: [255, 255, 255],
+          //         width: 2
+          //       }
+          //     }
+          //   },
+          //   {
+          //     geometry: {
+          //       type: 'point',
+          //       x: 102.68410677204612,
+          //       y: 30.972666971580107,
+          //       z: 2760
+          //     },
+          //     symbol: {
+          //       type: 'simple-marker',
+          //       color: [31, 100, 10],
+          //       outline: {
+          //         color: [255, 255, 255],
+          //         width: 2
+          //       }
+          //     }
+          //   }
+          // ]
         },
         {
           id: 1,
@@ -764,7 +993,80 @@ export default {
               waveHeight: 10,
               formatter: '{value}%'
             }
-          }
+          },
+          camera: {
+            position: [
+              102.68574995029584,
+              30.973350848001495,
+              2798.6877673929557
+            ],
+            tilt: 76.40884423513269,
+            heading: 244.20253800398586
+          },
+          graphics: [
+            {
+              geometry: {
+                type: 'polyline',
+                paths: [
+                  [102.68410677204612, 30.972666971580107, 2756],
+                  [102.68410677204612, 30.972666971580107, 2770]
+                ]
+              },
+              symbol: {
+                type: 'simple-line',
+                color: [226, 119, 40],
+                width: 4
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2756
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2770
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2768
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [221, 10, 53],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            }
+          ]
         },
         {
           id: 2,
@@ -777,7 +1079,80 @@ export default {
               waveHeight: 10,
               formatter: '{value}%'
             }
-          }
+          },
+          camera: {
+            position: [
+              102.68418629550149,
+              30.974077425675688,
+              2846.116471485235
+            ],
+            tilt: 60.306288197280736,
+            heading: 183.50401687293274
+          },
+          graphics: [
+            {
+              geometry: {
+                type: 'polyline',
+                paths: [
+                  [102.68410677204612, 30.972666971580107, 2756],
+                  [102.68410677204612, 30.972666971580107, 2770]
+                ]
+              },
+              symbol: {
+                type: 'simple-line',
+                color: [226, 119, 40],
+                width: 4
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2756
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2770
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2758
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [31, 100, 10],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            }
+          ]
         },
         {
           id: 3,
@@ -790,7 +1165,80 @@ export default {
               waveHeight: 10,
               formatter: '{value}%'
             }
-          }
+          },
+          camera: {
+            position: [
+              102.68574995029584,
+              30.973350848001495,
+              2798.6877673929557
+            ],
+            tilt: 76.40884423513269,
+            heading: 244.20253800398586
+          },
+          graphics: [
+            {
+              geometry: {
+                type: 'polyline',
+                paths: [
+                  [102.68410677204612, 30.972666971580107, 2756],
+                  [102.68410677204612, 30.972666971580107, 2770]
+                ]
+              },
+              symbol: {
+                type: 'simple-line',
+                color: [226, 119, 40],
+                width: 4
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2756
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2770
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2769
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [221, 10, 53],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            }
+          ]
         }
       ],
       onTimeTemperature: {
@@ -899,15 +1347,16 @@ export default {
   },
   methods: {
     onTimeEventClicked(data) {
-      // let camera = this.onTimeEventData[data.rowIndex].camera
-      // this.setCamera(camera)
-      this.pushGraphic(this.onTimeEventData[data.rowIndex].graphic)
+      let eventData = this.onTimeEventData[data.rowIndex]
+      this.setGraphics([eventData.graphic])
+      this.setCamera(eventData.camera)
     },
     setNowScreenMode(mode) {
       this.nowScreenMode = mode
     },
-    test(id) {
-      console.log(id)
+    waterLevelsClicked(data) {
+      this.setGraphics(data.graphics)
+      this.setCamera(data.camera)
     },
     ...mapActions({
       setCamera: 'setCamera',

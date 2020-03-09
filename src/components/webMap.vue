@@ -32,7 +32,8 @@ export default {
         url: 'http://192.168.0.122:6080/arcgis/rest/services/hehu/MapServer'
       })
 
-      const baseMap = Basemap.fromId('streets-night-vector')
+      const baseMap = Basemap.fromId('hybrid')
+      // const baseMap = Basemap.fromId('streets-night-vector')
       baseMap.baseLayers.add(layer)
       return new Map({
         basemap: baseMap,
@@ -161,7 +162,7 @@ export default {
 
           // self.view.graphics.add(pointGraphic)
           // self.view.graphics.add(pointGraphic2)
-          // this.showProperties()
+          this.showProperties()
         }
       )
     },
@@ -174,7 +175,7 @@ export default {
         // 'ready',
         // 'resolution',
         // 'scale',
-        // 'camera'
+        'camera'
         // 'zoom',
         // 'stationary'
         // the following properties are commented out for space reason, comment in if you would like to see them
@@ -186,38 +187,21 @@ export default {
       ]
       function setupPropertiesListener(view, name) {
         view.watch(name, function(value) {
-          console.log(value)
+          console.log(
+            'position: ' +
+              value.position.latitude +
+              ' ' +
+              value.position.longitude +
+              ' ' +
+              value.position.z
+          )
+          console.log('heading: ' + value.heading)
+          console.log('tilt: ' + value.tilt)
         })
       }
       for (let i = 0; i < properties.length; i++) {
         setupPropertiesListener(this.view, properties[i])
       }
-    },
-    xxx(Graphic) {
-      var point = {
-        type: 'point',
-        x: -0.178,
-        y: 51.48791
-        // z: 1000
-      }
-
-      var markerSymbol = {
-        type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-        color: [226, 119, 40],
-        outline: {
-          // autocasts as new SimpleLineSymbol()
-          color: [255, 255, 255],
-          width: 2
-        }
-      }
-
-      var pointGraphic = new Graphic({
-        geometry: point,
-        symbol: markerSymbol
-      })
-
-      self.view.graphics.add(pointGraphic)
-      // this.graphicsLayer.add(pointGraphic)
     }
   },
   data() {
@@ -231,7 +215,9 @@ export default {
   },
   watch: {
     camera(current) {
-      this.view.goTo(current, { maxDuration: 1000 })
+      if (current) {
+        this.view.goTo(current, { maxDuration: 1000 })
+      }
     },
     graphics(current) {
       this.view.graphics.removeAll()

@@ -1,5 +1,4 @@
 export default {
-  name: 'test',
   camera: {
     position: [
       102.71341940979923,
