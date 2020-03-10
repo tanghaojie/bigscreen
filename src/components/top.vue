@@ -30,7 +30,7 @@ export default {
   justify-content: space-between;
   flex-shrink: 0; /**不能缩放*/
   flex-grow: 0; /**不能缩放*/
-  background-image: url('../assets/bg_top.png');
+  background-image: url('../assets/imgs/bg_top.png');
 
   .header-center-decoration {
     width: 40%;

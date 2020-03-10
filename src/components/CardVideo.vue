@@ -65,7 +65,7 @@ import Icon from 'vue-awesome/components/Icon.vue'
 import axios from 'axios'
 import Qs from 'qs'
 import { forEach, debounce } from 'lodash'
-import { parseQuery } from '../unitil/url'
+import { parseQuery } from '../assets/url.js'
 
 Vue.use(fullscreen)
 Vue.component('v-icon', Icon)
@@ -75,7 +75,6 @@ var config = {
 export default {
   name: 'card-video',
   props: ['content'],
-  inject: ['eventBus'],
   data: function() {
     return {
       id:
@@ -175,14 +174,14 @@ export default {
       this.deviceSerial = item.code.split('_')[0]
       this.channelNo = item.code.split('_')[1]
 
-      var videoObject = {
-        container: '#' + this.id,
-        variable: 'player', // 播放函数名称,
-        autoplay: true,
-        live: true,
-        video: item.url
-      }
-      this.player = new ckplayer(videoObject)
+      // var videoObject = {
+      //   container: '#' + this.id,
+      //   variable: 'player', // 播放函数名称,
+      //   autoplay: true,
+      //   live: true,
+      //   video: item.url
+      // }
+      // this.player = new ckplayer(videoObject)
       if (this.$parent.setHeadTitle) {
         this.$parent.setHeadTitle(item.name)
       }
@@ -208,6 +207,7 @@ export default {
   },
   created() {
     // this.id = "video" + Math.random().toString().substr(2, 10);
+
     this.debouncedSetToolsVisible = debounce(this.setToolsVisible, 3000)
   },
   mounted() {
@@ -231,7 +231,7 @@ export default {
 }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style scoped>
 .card-video {
   height: 100%;
   width: 100%;
@@ -249,7 +249,7 @@ export default {
   right: 1em;
   opacity: 0.5;
   border-radius: 2em;
-  background-image: url('imgs/ysy_control_b.png');
+  background-image: url('../assets/imgs/ysy_control_b.png');
   background-size: contain;
 }
 
@@ -271,7 +271,7 @@ export default {
   top: 1em;
   left: 1em;
   border-radius: 1em;
-  background-image: url('imgs/ysy_control_c.png');
+  background-image: url('../assets/imgs/ysy_control_c.png');
   background-size: cover;
 }
 

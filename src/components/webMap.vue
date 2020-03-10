@@ -175,7 +175,7 @@ export default {
         // 'ready',
         // 'resolution',
         // 'scale',
-        'camera'
+        // 'camera'
         // 'zoom',
         // 'stationary'
         // the following properties are commented out for space reason, comment in if you would like to see them

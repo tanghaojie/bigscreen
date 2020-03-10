@@ -87,7 +87,7 @@
                       :data="item.data"
                       style="height:80%;margin-top:3%;"
                       :style="'width:' + 80 / onTimeWaterQuality.length + '%'"
-                      @click.native="waterLevelsClicked(item.id)"
+                      @click.native="waterLevelsClicked(item)"
                     />
                   </div>
                 </dv-border-box-8>
@@ -95,8 +95,23 @@
             </div>
             <div class="content-item-center"></div>
             <div
-              class="content-item-right flex all-point-events flex-column justify-space-between bg-green opacity-0-3"
-            ></div>
+              class="content-item-right flex all-point-events flex-column justify-space-between"
+            >
+              <div style="height:50%;" class="bg-red">
+                <!-- <card-video /> -->
+              </div>
+              <div style="height:49%;">
+                <div style="text-align:left;font-size:20px;height:36px;">
+                  <p style="margin:0;">物联网设备预警信息</p>
+                </div>
+                <dv-scroll-board
+                  :config="onTimeIot"
+                  style="width:100%;height:calc(100% - 36px);"
+                  @click="onTimeEventClicked"
+                />
+                <!-- <div style="width:100%;height:calc(100% - 36px);"></div> -->
+              </div>
+            </div>
           </div>
 
           <div class="overlay flex flex-row justify-center flex-align-end">
@@ -137,6 +152,7 @@ import 'echarts/lib/component/polar'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import { mapActions } from 'vuex'
+import CardVideo from './CardVideo.vue'
 
 export default {
   components: {
@@ -148,7 +164,8 @@ export default {
     spinView,
     waterLevel,
     ECharts,
-    Icon
+    Icon,
+    'card-video': CardVideo
   },
   props: {},
   data() {
@@ -875,112 +892,78 @@ export default {
             }
           },
           camera: {
-            // position: [
-            //   102.68574995029584,
-            //   30.973350848001495,
-            //   2798.6877673929557
-            // ],
-            position: [-97.06138, 32.837, 1500],
+            position: [
+              102.68574995029584,
+              30.973350848001495,
+              2798.6877673929557
+            ],
             tilt: 76.40884423513269,
             heading: 244.20253800398586
           },
           graphics: [
             {
               geometry: {
-                type: 'polygon',
-                rings: [
-                  [
-                    // first ring
-                    [-97.06138, 32.837, 1000],
-                    [-97.06133, 32.836, 1000],
-                    [-97.06124, 32.834, 1000],
-                    [-97.06138, 32.837, 1000] // same as first vertex
-                  ],
-                  [
-                    // second ring
-                    [-97.06326, 32.759, 2000],
-                    [-97.06298, 32.755, 2000],
-                    [-97.06153, 32.749, 2000],
-                    [-97.06326, 32.759, 2000] // same as first vertex
-                  ]
-                ],
-                spatialReference: { wkid: 4326 }
+                type: 'polyline',
+                paths: [
+                  [102.68410677204612, 30.972666971580107, 2756],
+                  [102.68410677204612, 30.972666971580107, 2770]
+                ]
               },
               symbol: {
-                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-                color: [227, 139, 79, 0.8],
+                type: 'simple-line',
+                color: [226, 119, 40],
+                width: 4
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2756
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
                 outline: {
-                  // autocasts as new SimpleLineSymbol()
                   color: [255, 255, 255],
-                  width: 1
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2770
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [226, 119, 40],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              geometry: {
+                type: 'point',
+                x: 102.68410677204612,
+                y: 30.972666971580107,
+                z: 2760
+              },
+              symbol: {
+                type: 'simple-marker',
+                color: [31, 100, 10],
+                outline: {
+                  color: [255, 255, 255],
+                  width: 2
                 }
               }
             }
           ]
-          // graphics: [
-          //   {
-          //     geometry: {
-          //       type: 'polyline',
-          //       paths: [
-          //         [102.68410677204612, 30.972666971580107, 2756],
-          //         [102.68410677204612, 30.972666971580107, 2770]
-          //       ]
-          //     },
-          //     symbol: {
-          //       type: 'simple-line',
-          //       color: [226, 119, 40],
-          //       width: 4
-          //     }
-          //   },
-          //   {
-          //     geometry: {
-          //       type: 'point',
-          //       x: 102.68410677204612,
-          //       y: 30.972666971580107,
-          //       z: 2756
-          //     },
-          //     symbol: {
-          //       type: 'simple-marker',
-          //       color: [226, 119, 40],
-          //       outline: {
-          //         color: [255, 255, 255],
-          //         width: 2
-          //       }
-          //     }
-          //   },
-          //   {
-          //     geometry: {
-          //       type: 'point',
-          //       x: 102.68410677204612,
-          //       y: 30.972666971580107,
-          //       z: 2770
-          //     },
-          //     symbol: {
-          //       type: 'simple-marker',
-          //       color: [226, 119, 40],
-          //       outline: {
-          //         color: [255, 255, 255],
-          //         width: 2
-          //       }
-          //     }
-          //   },
-          //   {
-          //     geometry: {
-          //       type: 'point',
-          //       x: 102.68410677204612,
-          //       y: 30.972666971580107,
-          //       z: 2760
-          //     },
-          //     symbol: {
-          //       type: 'simple-marker',
-          //       color: [31, 100, 10],
-          //       outline: {
-          //         color: [255, 255, 255],
-          //         width: 2
-          //       }
-          //     }
-          //   }
-          // ]
         },
         {
           id: 1,
@@ -1299,7 +1282,38 @@ export default {
             title: '大渡河',
             dur: 10,
             text: 'Ⅰ级'
-          }
+          },
+          camera: {
+            position: [102.6855784336792, 30.9735007450848, 2923.924740260467],
+            tilt: 43.00874939326398,
+            heading: 240.93287386313952
+          },
+          graphics: [
+            {
+              geometry: {
+                type: 'polygon',
+                rings: [
+                  [
+                    [102.68402, 30.9727, 2755],
+                    [102.68412, 30.9727, 2755],
+                    [102.68412, 30.97278, 2755],
+                    [102.68402, 30.97278, 2755],
+                    [102.68402, 30.9727, 2755]
+                  ]
+                ]
+              },
+              symbol: {
+                type: 'polygon-3d',
+                symbolLayers: [
+                  {
+                    type: 'extrude',
+                    size: 10,
+                    material: { color: 'red' }
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           id: 1,
@@ -1316,6 +1330,48 @@ export default {
             dur: 10,
             text: 'Ⅳ级'
           }
+        }
+      ],
+      onTimeIotData: [
+        {
+          id: 0,
+          date: '2020-02-02 09：00',
+          info: '大渡河汶川段水位超过预警线0.3m'
+        },
+        {
+          id: 1,
+          date: '2020-02-02 12：38',
+          info: '嘉陵江水质降为Ⅱ级，汞超标'
+        },
+        {
+          id: 2,
+          date: '2020-02-10 11：56',
+          info: '涪江流速达到警戒流速'
+        },
+        {
+          id: 3,
+          date: '2020-02-11 09：02',
+          info: '一号摄像头识别有人入侵'
+        },
+        {
+          id: 4,
+          date: '2020-02-12 10：15',
+          info: '紫坪铺水库水位达到警戒线'
+        },
+        {
+          id: 5,
+          date: '2020-02-13 19：30',
+          info: '嘉陵江1号监测点监测到水位超过预警线0.3m'
+        },
+        {
+          id: 6,
+          date: '2020-02-14 23：59',
+          info: '涪江二桥水位预警'
+        },
+        {
+          id: 7,
+          date: '2020-02-15 13：00',
+          info: '岷江水质降为Ⅳ级，磷含量超过预设标准120%'
         }
       ]
     }
@@ -1343,6 +1399,22 @@ export default {
         evenRowBGC: 'rgba(10,39,50,.5)',
         indexHeader: ''
       }
+    },
+    onTimeIot() {
+      let datas = []
+      for (let d of this.onTimeIotData) {
+        datas.push([d.date, d.info])
+      }
+      return {
+        header: ['时间', '消息'],
+        data: datas,
+        index: true,
+        columnWidth: [50, 160],
+        headerBGC: 'rgba(0,186,255,.5)',
+        oddRowBGC: 'rgba(0,59,81,.5)',
+        evenRowBGC: 'rgba(10,39,50,.5)',
+        indexHeader: ''
+      }
     }
   },
   methods: {
@@ -1355,6 +1427,10 @@ export default {
       this.nowScreenMode = mode
     },
     waterLevelsClicked(data) {
+      this.setGraphics(data.graphics)
+      this.setCamera(data.camera)
+    },
+    waterQualityClicked(data) {
       this.setGraphics(data.graphics)
       this.setCamera(data.camera)
     },
@@ -1388,7 +1464,7 @@ export default {
       flex: 1;
       width: 100%;
       position: relative;
-      background-image: url('../assets/bg_container.png');
+      background-image: url('../assets/imgs/bg_container.png');
 
       .content {
         position: relative;
@@ -1421,7 +1497,7 @@ export default {
         height: 100%;
         pointer-events: none;
         z-index: 1;
-        background-image: url('../assets/bg_overlay4_container.png');
+        background-image: url('../assets/imgs/bg_overlay4_container.png');
       }
 
       .map-container {
