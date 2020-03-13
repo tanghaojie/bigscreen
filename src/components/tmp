@@ -1,0 +1,108 @@
+<transition name="fade" mode="out-in">
+            <div
+              class="content flex none-point-events"
+              v-if="screenMode.statistic == nowScreenMode"
+              :key="screenMode.statistic"
+            >
+              <div
+                class="content-item-left flex all-point-events flex-column justify-space-between"
+              >
+                <div style="height:32%;">
+                  <!-- <chart-view :data="completionByRegion" /> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <chart-view :data="completionRate" /> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <chart-view :data="numberOfRecent6Months" /> -->
+                </div>
+              </div>
+              <div class="content-item-center"></div>
+              <div
+                class="content-item-right flex all-point-events flex-column justify-space-between"
+              >
+                <div style="height:32%;">
+                  <!-- <chart-view :data="eventDistribute" /> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <chart-view :data="completionByEvent" /> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <div style="text-align:left;font-size:20px;height:36px;">
+                    <p style="margin:0;">实时巡河事件</p>
+                  </div>
+                  <dv-scroll-board
+                    :config="onTimeEvent"
+                    style="width:100%;height:calc(100% - 36px);"
+                    @click="onTimeEventClicked"
+                  /> -->
+                </div>
+              </div>
+            </div>
+            <div
+              class="content flex none-point-events"
+              v-else-if="screenMode.monitor == nowScreenMode"
+              :key="screenMode.monitor"
+            >
+              <div
+                class="content-item-left flex all-point-events flex-column justify-space-between"
+              >
+                <div style="height:32%;">
+                  <!-- <dv-border-box-1>
+                  <div style="font-size:18px;">实时水位监测</div>
+                  <div
+                    class="flex flex-row justify-space-around margin-t-10"
+                    style="height:calc(100% - 28px)"
+                  >
+                    <water-level
+                      v-for="item in waterLevels"
+                      :key="item.id"
+                      :data="item.data"
+                      style="height:80%"
+                      :style="'width:' + 80 / waterLevels.length + '%'"
+                      @click.native="waterLevelsClicked(item)"
+                    />
+                  </div>
+                </dv-border-box-1> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <capsule-chart-view :data="onTimeTemperature" /> -->
+                </div>
+                <div style="height:32%;">
+                  <!-- <dv-border-box-8 :dur="6">
+                  <div style="font-size:18px;">水质监测和系统评级</div>
+                  <div
+                    class="flex flex-row justify-space-around initial-svg-w-h"
+                  >
+                    <spin-view
+                      v-for="item in onTimeWaterQuality"
+                      :key="item.id"
+                      :data="item.data"
+                      style="height:80%;margin-top:3%;"
+                      :style="'width:' + 80 / onTimeWaterQuality.length + '%'"
+                      @click.native="waterLevelsClicked(item)"
+                    />
+                  </div>
+                </dv-border-box-8> -->
+                </div>
+              </div>
+              <div class="content-item-center"></div>
+              <div
+                class="content-item-right flex all-point-events flex-column justify-space-between"
+              >
+                <div style="height:50%;" class="bg-black">
+                  <!-- <vue-video :options="videoOptions" /> -->
+                </div>
+                <div style="height:49%;">
+                  <!-- <div style="text-align:left;font-size:20px;height:36px;">
+                  <p style="margin:0;">物联网设备预警信息</p>
+                </div>
+                <dv-scroll-board
+                  :config="onTimeIot"
+                  style="width:100%;height:calc(100% - 36px);"
+                  @click="onTimeEventClicked"
+                /> -->
+                </div>
+              </div>
+            </div>
+          </transition>
