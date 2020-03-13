@@ -1,21 +1,26 @@
 <template>
   <div id="app" style="height: 100%">
-      <index />
+    <index />
   </div>
 </template>
 
 <script>
-import index from './components/index.vue';
+import index from './components/index.vue'
 
 export default {
   name: 'App',
-  components: { index }
-};
+  components: {
+    index
+  },
+  data() {
+    return {}
+  }
+}
 </script>
 
 <style scoped>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

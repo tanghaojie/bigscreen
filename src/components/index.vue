@@ -9,6 +9,7 @@
           <div
             class="content flex none-point-events"
             v-if="screenMode.statistic == nowScreenMode"
+            :key="screenMode.statistic"
           >
             <div
               class="content-item-left flex all-point-events flex-column justify-space-between"
@@ -50,6 +51,7 @@
           <div
             class="content flex none-point-events"
             v-else-if="screenMode.monitor == nowScreenMode"
+            :key="screenMode.monitor"
           >
             <div
               class="content-item-left flex all-point-events flex-column justify-space-between"
@@ -97,8 +99,8 @@
             <div
               class="content-item-right flex all-point-events flex-column justify-space-between"
             >
-              <div style="height:50%;" class="bg-red">
-                <!-- <card-video /> -->
+              <div style="height:50%;" class="bg-black">
+                <vue-video :options="videoOptions" />
               </div>
               <div style="height:49%;">
                 <div style="text-align:left;font-size:20px;height:36px;">
@@ -152,7 +154,7 @@ import 'echarts/lib/component/polar'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import { mapActions } from 'vuex'
-import CardVideo from './CardVideo.vue'
+import vueVideo from './vue-video.vue'
 
 export default {
   components: {
@@ -165,7 +167,7 @@ export default {
     waterLevel,
     ECharts,
     Icon,
-    'card-video': CardVideo
+    vueVideo
   },
   props: {},
   data() {
@@ -1373,7 +1375,19 @@ export default {
           date: '2020-02-15 13：00',
           info: '岷江水质降为Ⅳ级，磷含量超过预设标准120%'
         }
-      ]
+      ],
+      videoOptions: {
+        autoplay: true,
+        controls: false,
+        language: 'zh',
+        fluid: true,
+        sources: [
+          {
+            src: 'rtmp://192.168.6.106/live/qq',
+            type: 'rtmp/flv'
+          }
+        ]
+      }
     }
   },
   watch: {},

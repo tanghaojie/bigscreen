@@ -3,6 +3,7 @@ import App from './App'
 import store from './store/store'
 
 import './assets/util.less'
+import './assets/util_rl.less'
 // import router from './router'
 import dataV from '@jiaminghi/data-view'
 // import BootstrapVue from 'bootstrap-vue'
@@ -17,7 +18,6 @@ let vm = new Vue({
   store,
   render: h => h(App)
 })
-// console.log(vm)
 
 Vue.use({
   vm

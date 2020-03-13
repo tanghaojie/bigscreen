@@ -72,6 +72,7 @@ Vue.component('v-icon', Icon)
 var config = {
   responseType: 'application/json'
 }
+
 export default {
   name: 'card-video',
   props: ['content'],
@@ -182,9 +183,9 @@ export default {
       //   video: item.url
       // }
       // this.player = new ckplayer(videoObject)
-      if (this.$parent.setHeadTitle) {
-        this.$parent.setHeadTitle(item.name)
-      }
+      // if (this.$parent.setHeadTitle) {
+      //   this.$parent.setHeadTitle(item.name)
+      // }
     },
     start() {
       if (this.player) {

@@ -18,11 +18,14 @@
     "esri-loader": "^2.13.0",
     "full-screen": "^1.0.0",
     "scss-loader": "0.0.1",
+    "videojs": "^1.0.0",
+    "videojs-flash": "^2.2.1",
     "vue": "^2.5.2",
     "vue-awesome": "^4.0.2",
     "vue-echarts": "^5.0.0-beta.0",
     "vue-fullscreen": "^2.1.5",
     "vue-router": "^3.0.1",
+    "vue-video-player": "^5.0.2",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
