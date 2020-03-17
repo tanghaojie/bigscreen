@@ -7,34 +7,27 @@
         <digital-flop />
         <div class="main-container">
           <transition name="fade" mode="out-in">
-            <component v-bind:is="screenModeToComponent"></component>
+            <router-view></router-view>
           </transition>
 
-          <div class="overlay flex flex-row justify-center flex-align-end">
+          <div
+            class="overlay none-point-events z-index-1 flex flex-row justify-center flex-align-end"
+          >
             <transition name="fade">
-              <div
-                v-if="screenMode.none != nowScreenMode"
-                class="overlay overlay-bg-img"
-              ></div>
+              <router-view name="overlay"></router-view>
             </transition>
 
-            <div
+            <router-link
               v-for="item in getSwitches"
               class="padding-10 all-point-events"
-              @click="setNowScreenMode(item.screenMode)"
               :key="item.screenMode"
+              :to="item.to"
+              active-class="active"
+              exact
+              style="color:#fff;"
             >
-              <icon
-                :name="item.iconName"
-                scale="1.5"
-                :style="{
-                  color:
-                    item.screenMode == nowScreenMode
-                      ? screenModeIconColor.selected
-                      : screenModeIconColor.default
-                }"
-              />
-            </div>
+              <icon :name="item.iconName" scale="1.5" />
+            </router-link>
           </div>
 
           <div class="map-container">
@@ -53,68 +46,39 @@ import webMap from './webMap.vue'
 import digitalFlop from './digitalFlop.vue'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
-import screenMonitor from './screen_monitor.vue'
-import screenStatistic from './screen_statistic.vue'
 
 export default {
   components: {
     top,
     webMap,
     digitalFlop,
-    Icon,
-    'screen-monitor': screenMonitor,
-    'screen-statistic': screenStatistic
+    Icon
   },
   props: {},
   data() {
-    return {
-      screenMode: {
-        statistic: 0,
-        monitor: 1,
-        none: 2
-      },
-      screenModeIconColor: {
-        default: '#fff',
-        selected: '#001c45'
-      },
-      nowScreenMode: undefined
-    }
+    return {}
   },
   watch: {},
   computed: {
-    screenModeToComponent() {
-      if (this.nowScreenMode === this.screenMode.monitor) {
-        return 'screen-monitor'
-      } else if (this.nowScreenMode === this.screenMode.statistic) {
-        return 'screen-statistic'
-      }
-      return null
-    },
     getSwitches() {
       return [
         {
-          screenMode: this.screenMode.statistic,
-          iconName: 'chart-bar'
+          iconName: 'chart-bar',
+          to: '/statistic'
         },
         {
-          screenMode: this.screenMode.monitor,
-          iconName: 'eye'
+          iconName: 'eye',
+          to: '/monitor'
         },
         {
-          screenMode: this.screenMode.none,
-          iconName: 'map'
+          iconName: 'map',
+          to: '/'
         }
       ]
     }
   },
-  methods: {
-    setNowScreenMode(mode) {
-      this.nowScreenMode = mode
-    }
-  },
-  created() {
-    this.nowScreenMode = this.screenMode.statistic
-  },
+  methods: {},
+  created() {},
   mounted() {}
 }
 </script>
@@ -138,18 +102,8 @@ export default {
       position: relative;
       background-image: url('../assets/imgs/bg_container.png');
 
-      .overlay {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .overlay-bg-img {
-        background-image: url('../assets/imgs/bg_overlay4_container.png');
+      .active {
+        color: #001c45 !important;
       }
 
       .map-container {

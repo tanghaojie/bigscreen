@@ -66,7 +66,7 @@ import waterLevel from './waterLevel.vue'
 import capsuleChartView from './capsuleChartView.vue'
 import spinView from './spinView.vue'
 import vueVideo from './vue-video.vue'
-import CAMERA_PIC_PATH from '../assets/imgs/camera1_loading.png'
+// import CAMERA_PIC_PATH from '../assets/imgs/camera1_loading.png'
 import { mapActions } from 'vuex'
 
 export default {
@@ -772,7 +772,7 @@ export default {
         controls: false,
         language: 'zh-CN',
         fluid: true,
-        poster: CAMERA_PIC_PATH,
+        // poster: CAMERA_PIC_PATH,
         sources: [
           {
             src: 'rtmp://117.139.247.104:13008/live/qq',

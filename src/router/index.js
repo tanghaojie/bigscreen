@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import screenMonitor from '../components/screen_monitor.vue'
+import screenStatistic from '../components/screen_statistic.vue'
+import overlay from '../components/overlayBackground.vue'
 
 Vue.use(Router)
 
@@ -8,8 +10,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: null
+    },
+    {
+      path: '/monitor',
+      components:
+      {
+        default: screenMonitor,
+        overlay: overlay
+      }
+    },
+    {
+      path: '/statistic',
+      components:
+      {
+        default: screenStatistic,
+        overlay: overlay
+      }
     }
   ]
 })
