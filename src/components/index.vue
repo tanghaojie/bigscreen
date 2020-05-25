@@ -62,12 +62,12 @@ export default {
   computed: {
     getSwitches() {
       return [
+        // {
+        //   iconName: 'eye',
+        //   to: '/statistic'
+        // },
         {
           iconName: 'chart-bar',
-          to: '/statistic'
-        },
-        {
-          iconName: 'eye',
           to: '/monitor'
         },
         {

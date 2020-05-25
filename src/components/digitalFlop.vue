@@ -5,7 +5,9 @@
       v-for="item in digitalFlopData"
       :key="item.title"
     >
-      <div class="digital-flop-title">{{ item.title }}</div>
+      <div class="digital-flop-title">
+        {{ item.title }}
+      </div>
       <div class="flex">
         <dv-digital-flop :config="item.number" class="dv-digital-flop" />
       </div>

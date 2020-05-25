@@ -1,62 +1,27 @@
 <template>
   <div>
+    <button id="canoe" class="esri-button">Tent</button>
     <div id="mapView"></div>
   </div>
 </template>
 
 <script>
 import { JS_API_URL } from '../config/config.js'
-import { loadModules } from 'esri-loader'
-import { mapState } from 'vuex'
-// import func from '../../vue-temp/vue-editor-bridge'
+import esriLoader from 'esri-loader'
+import { mapState, mapActions } from 'vuex'
+import X from '../assets/ruler.img'
 
 export default {
   name: 'web-map',
   methods: {
-    initMap(Map, esriConfig, WMSLayer, FeatureLayer, MapImageLayer, Basemap) {
-      // esriConfig.request.corsEnabledServers.push('192.168.0.122:6080')
-      // var layer = new WMSLayer({
-      //   url:
-      //     'http://192.168.0.122:6080/arcgis/services/hehu/MapServer/WMSServer',
-      //   sublayers: [
-      //     {
-      //       name: '2'
-      //     }
-      //   ]
-      // })
-      // const layer = new FeatureLayer({
-      //   url:
-      //     'http://192.168.0.122:6080/arcgis/rest/services/hehu/MapServer'
-      // })
-      const layer = new MapImageLayer({
-        url: 'http://192.168.0.122:6080/arcgis/rest/services/hehu/MapServer'
-      })
-
-      const baseMap = Basemap.fromId('hybrid')
-      // const baseMap = Basemap.fromId('streets-night-vector')
-      baseMap.baseLayers.add(layer)
-      return new Map({
-        basemap: baseMap,
-        ground: 'world-elevation'
-      })
+    createWatchUtils(view, camera) {
+      this.esriModules.watchUtils
+        .whenOnce(view, 'ready')
+        .then(function(result) {
+          view.goTo(camera, { maxDuration: 1000 })
+        })
     },
-    initSceneView(SceneView, containerIdSelector, map) {
-      return new SceneView({
-        container: containerIdSelector,
-        map: map,
-        // camera: this.camera,
-        alphaCompositingEnabled: true,
-        environment: {
-          background: {
-            type: 'color',
-            color: [0, 0, 0, 0]
-          },
-          starsEnabled: false,
-          atmosphereEnabled: false
-        }
-      })
-    },
-    initWebGLDetect(view, containerIdSelector) {
+    webGLDetect(view, containerIdSelector) {
       view
         .when(function() {
           document.getElementById(containerIdSelector).style.display = 'flex'
@@ -68,104 +33,157 @@ export default {
           }
         })
     },
-    initViewUIComponents(view) {
-      view.ui.components = []
-    },
-    initWatchUtils(watchUtils, view, camera) {
-      watchUtils.whenOnce(view, 'ready').then(function(result) {
-        view.goTo(camera, { maxDuration: 1000 })
+    createMap() {
+      this.esriModules.esriConfig.request.corsEnabledServers.push(
+        'http://company.sctanghaojie.xyz:13009'
+      )
+      // const layer = new this.esriModules.MapImageLayer({
+      //   url:
+      //     'https://sctz.arcgis.cn/arcgis/rest/services/hehu_guanghan/MapServer'
+      // })
+      const baseMap = this.esriModules.Basemap.fromId('hybrid')
+      // const baseMap = Basemap.fromId('streets-night-vector')
+      // baseMap.baseLayers.add(layer)
+      return new this.esriModules.Map({
+        basemap: baseMap,
+        ground: 'world-elevation'
       })
-      // this.view.on('click', function(evt) {})
     },
-    initWebMap() {
-      const options = {
-        css: true,
-        url: JS_API_URL
-      }
-      loadModules(
-        [
-          'esri/Map',
-          'esri/Basemap',
-          'esri/views/SceneView',
-          'esri/core/watchUtils',
-          'esri/layers/WMSLayer',
-          'esri/layers/FeatureLayer',
-          'esri/layers/MapImageLayer',
-          'esri/config',
-          'esri/layers/GraphicsLayer',
-          'esri/Graphic'
-        ],
-        options
-      ).then(
-        ([
-          Map,
-          Basemap,
-          SceneView,
-          watchUtils,
-          WMSLayer,
-          FeatureLayer,
-          MapImageLayer,
-          esriConfig,
-          GraphicsLayer,
-          Graphic
-        ]) => {
-          let self = this
-          let containerIdSeletor = 'mapView'
+    createSceneView(containerIdSeletor, map) {
+      return new this.esriModules.SceneView({
+        container: containerIdSeletor,
+        map: map
+        // camera: this.camera,
+        // alphaCompositingEnabled: true,
+        // environment: {
+        //   background: {
+        //     type: 'color',
+        //     color: [0, 0, 0, 0]
+        //   },
+        //   starsEnabled: false,
+        //   atmosphereEnabled: false
+        // }
+      })
+    },
 
-          const map = this.initMap(
+    modelTest(view) {
+      let self = this
+      const graphicsLayer = new this.esriModules.GraphicsLayer({
+        elevationInfo: { mode: 'on-the-ground' }
+      })
+      view.map.add(graphicsLayer)
+
+      const canoeBtn = document.getElementById('canoe')
+
+      view
+        .when(function() {
+          canoeBtn.addEventListener('click', function() {
+            self.view.graphics.add(
+              new self.esriModules.Graphic({
+                geometry: {
+                  type: 'point',
+                  x: 113.030446,
+                  y: 23.037887
+                },
+                symbol: {
+                  type: 'point-3d',
+                  symbolLayers: [
+                    {
+                      type: 'object',
+                      resource: {
+                        href: X
+                      },
+                      width: 1,
+                      height: 50,
+                      depth: 10,
+                      heading: 90
+                    }
+                  ]
+                }
+              })
+            )
+          })
+        })
+        .catch(console.error)
+    },
+
+    create() {
+      let containerIdSeletor = 'mapView'
+      let view = this.createSceneView(containerIdSeletor, this.createMap())
+      this.webGLDetect(view, containerIdSeletor)
+      view.ui.components = []
+      this.createWatchUtils(view, this.camera)
+      this.modelTest(view)
+      this.showProperties()
+      this.view = view
+    },
+
+    init() {
+      esriLoader
+        .loadModules(
+          [
+            'esri/Map',
+            'esri/Basemap',
+            'esri/views/SceneView',
+            'esri/core/watchUtils',
+            'esri/layers/WMSLayer',
+            'esri/layers/FeatureLayer',
+            'esri/layers/MapImageLayer',
+            'esri/config',
+            'esri/layers/GraphicsLayer',
+            'esri/Graphic',
+            'esri/geometry/Point',
+            'esri/geometry/Mesh',
+            'esri/widgets/Sketch/SketchViewModel',
+            'esri/WebScene'
+          ],
+          {
+            css: true,
+            url: JS_API_URL
+          }
+        )
+        .then(
+          ([
             Map,
-            esriConfig,
+            Basemap,
+            SceneView,
+            watchUtils,
             WMSLayer,
             FeatureLayer,
             MapImageLayer,
-            Basemap
-          )
-
-          self.view = this.initSceneView(SceneView, containerIdSeletor, map)
-          this.initWebGLDetect(self.view)
-          this.initViewUIComponents(self.view)
-          this.initWatchUtils(watchUtils, self.view, self.camera)
-
-          // var point = {
-          //   type: 'point',
-          //   x: -0.178,
-          //   y: 51.48791
-          //   // z: 1000
-          // }
-
-          // var point2 = {
-          //   type: 'point',
-          //   x: -0.178,
-          //   y: 51.49
-          //   // z: 1000
-          // }
-
-          // var markerSymbol = {
-          //   type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-          //   color: [226, 119, 40],
-          //   outline: {
-          //     // autocasts as new SimpleLineSymbol()
-          //     color: [255, 255, 255],
-          //     width: 2
-          //   }
-          // }
-
-          // var pointGraphic = new Graphic({
-          //   geometry: point,
-          //   symbol: markerSymbol
-          // })
-
-          // var pointGraphic2 = new Graphic({
-          //   geometry: point2,
-          //   symbol: markerSymbol
-          // })
-
-          // self.view.graphics.add(pointGraphic)
-          // self.view.graphics.add(pointGraphic2)
-          this.showProperties()
-        }
-      )
+            esriConfig,
+            GraphicsLayer,
+            Graphic,
+            Point,
+            Mesh,
+            SketchViewModel,
+            WebScene
+          ]) => {
+            this.esriModules = {
+              Map,
+              Basemap,
+              SceneView,
+              watchUtils,
+              WMSLayer,
+              FeatureLayer,
+              MapImageLayer,
+              esriConfig,
+              GraphicsLayer,
+              Graphic,
+              Point,
+              Mesh,
+              SketchViewModel,
+              WebScene
+            }
+            this.create()
+          }
+        )
+        .catch(er => {
+          console.log('init error')
+          console.log(er)
+        })
     },
+
     showProperties() {
       const properties = [
         // 'navigation',
@@ -202,10 +220,16 @@ export default {
       for (let i = 0; i < properties.length; i++) {
         setupPropertiesListener(this.view, properties[i])
       }
-    }
+    },
+    ...mapActions({
+      setCamera: 'setCamera',
+      setGraphics: 'setGraphics'
+    })
   },
   data() {
-    return {}
+    return {
+      esriModules: {}
+    }
   },
   computed: {
     ...mapState({
@@ -226,11 +250,11 @@ export default {
           css: false,
           url: JS_API_URL
         }
-        loadModules(['esri/Graphic'], options).then(([Graphic]) => {
+        esriLoader.loadModules(['esri/Graphic'], options).then(([Graphic]) => {
           let self = this
           current.forEach(element => {
             self.view.graphics.add(
-              new Graphic({
+              new self.esriModules.Graphic({
                 geometry: element.geometry,
                 symbol: element.symbol
               })
@@ -241,7 +265,7 @@ export default {
     }
   },
   mounted() {
-    this.initWebMap()
+    this.init()
   },
   beforeDestroy() {
     if (this.view) {
