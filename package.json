@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@jiaminghi/data-view": "^2.7.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap-vue": "^2.2.0",
     "echarts": "^4.6.0",
     "esri-loader": "^2.13.0",
