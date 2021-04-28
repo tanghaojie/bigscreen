@@ -1,5 +1,5 @@
 const JS_API_URL =
-  'http://company.sctanghaojie.xyz:13009/Esri/js_api/4.14/init.js'
+  'http://192.168.0.3:88/Esri/js_api/4.14/init.js'
 const DEFAULT_CAMERA = {
   // position: [
   //   102.71341940979923,

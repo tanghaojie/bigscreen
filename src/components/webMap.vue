@@ -35,7 +35,7 @@ export default {
     },
     createMap() {
       this.esriModules.esriConfig.request.corsEnabledServers.push(
-        'http://company.sctanghaojie.xyz:13009'
+        'http://192.168.0.3:88'
       )
       // const layer = new this.esriModules.MapImageLayer({
       //   url:
