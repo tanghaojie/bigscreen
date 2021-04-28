@@ -1,6 +1,6 @@
 # big_screen
 
-[](./blob/master/screenshot.jpg)
+[](https://github.com/tanghaojie/bigscreen/blob/master/screenshot.min.jpg)
 
 > rl big screen
 
